@@ -7,10 +7,11 @@ from reportlab.lib.units import inch
 from datetime import datetime
 
 class ReportGenerator:
-    def __init__(self, data, real_name, github_username):
+    def __init__(self, data, real_name, github_username, demo_mode=False):
         self.data = data
         self.real_name = real_name
         self.github_username = github_username
+        self.demo_mode = demo_mode
         self.filename = f"{real_name.replace(' ', '_')}_exposed.pdf"
         self.styles = getSampleStyleSheet()
         self._setup_custom_styles()
@@ -153,6 +154,9 @@ class ReportGenerator:
         return "evening/night sessions"
 
     def _infer_personality(self):
+        if self.demo_mode:
+            return "Systems-oriented language choices suggest preference for performance-critical problem solving. Peak Wednesday evening activity indicates side-project driven development outside work hours. Consistent contribution streak suggests disciplined long-term thinking over short bursts."
+        
         profile = self.data.get('profile', {})
         languages = self.data.get('languages', {})
         activity = self.data.get('activity_stats', {})
@@ -205,6 +209,16 @@ class ReportGenerator:
         return " ".join(inferences[:5])
 
     def _calculate_valuation(self):
+        if self.demo_mode:
+            return {
+                "richness": "Medium",
+                "google": 3.20,
+                "meta": 1.90,
+                "brokers": 2.50,
+                "total": 7.60,
+                "lifetime": 3192.00
+            }
+
         profile = self.data.get('profile', {})
         repos = self.data.get('repos_count', 0)
         stars = self.data.get('stars', 0)

@@ -21,8 +21,20 @@ All findings are compiled into a styled **PDF Dossier** that looks like a leaked
 
 ## 📸 Sample Output
 
-![Dossier Preview](https://via.placeholder.com/800x400?text=Sample+Intelligence+Dossier+PDF+Preview)
+### Intelligence Dossier (PDF)
+![Dossier Preview](assets/preview.png)
 *The report features a dark header, monospace typography, and a "redaction-bar" aesthetic.*
+
+### CLI Interaction
+```text
+[*] Initiating collection for: Linus Torvalds (@torvalds)
+[+] Fetching GitHub intelligence...
+[+] Scanning public records via Google...
+[*] Attempting Google search for "Linus Torvalds"...
+[+] Compiling intelligence report...
+[*] Report successfully generated: Linus_Torvalds_exposed.pdf
+[*] Operation complete.
+```
 
 ---
 
@@ -53,6 +65,7 @@ uv run cipherself.py --github <username> --name "Full Name"
 ### Options:
 - `--github`: The subject's GitHub username.
 - `--name`: The subject's real full name.
+- `--demo`: Generate a fictional demo report and update `assets/preview.png`.
 - `--help`: View detailed usage instructions.
 
 ---
