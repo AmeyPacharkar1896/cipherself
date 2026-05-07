@@ -14,4 +14,7 @@ dependencies = [
 ]
 
 [project.scripts]
-cipherself = "cipherself:main"
+cipherself = "cipherself.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
