@@ -61,23 +61,23 @@ Run the tool by providing at least one identifier (GitHub, Name, or Reddit):
 
 ```bash
 # Full intel
-uv run cipherself.py --github torvalds --name "Linus Torvalds" --reddit torvalds
+uv run cipherself.py --github <GITHUB-USERNAME> --name <NAME> --reddit <REDDIT-USERNAME>
 
 # Reddit only
-uv run cipherself.py --reddit spez
+uv run cipherself.py --reddit <REDDIT-USERNAME>
 
 # GitHub and Name
-uv run cipherself.py --github torvalds --name "Linus Torvalds"
+uv run cipherself.py --github <GITHUB-USERNAME> --name <NAME>
 
 # Name only (Google search)
-uv run cipherself.py --name "Linus Torvalds"
+uv run cipherself.py --name <NAME>
 ```
 
 ### Options:
 - `--github`: The subject's GitHub username (optional).
 - `--name`: The subject's real full name (optional).
 - `--reddit`: The subject's Reddit username (optional, no API key needed).
-- `--demo`: Generate a fictional demo report and update `assets/preview.png`.
+- `--demo`: Generate a fictional demo report.
 - `--help`: View detailed usage instructions.
 
 ---
