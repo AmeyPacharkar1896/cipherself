@@ -82,6 +82,31 @@ uv run cipherself.py --name "Linus Torvalds"
 
 ---
 
+## 📂 Output Organization
+
+Generated dossiers are automatically organized into subdirectories within the `outputs/` folder based on the sources used for collection:
+
+- **GitHub only**: `outputs/github/`
+- **Reddit only**: `outputs/reddit/`
+- **Name only**: `outputs/name/`
+- **Multiple sources**: `outputs/github_reddit/`, `outputs/github_name/`, etc.
+- **Full Intel (All sources)**: `outputs/full/`
+- **Demo Mode**: `outputs/demo/`
+
+---
+
+## 🧪 Testing
+
+This project includes a suite of integration tests to ensure CLI stability and correct output organization.
+
+For detailed instructions on running tests, see the [Tests README](tests/README.md).
+
+```bash
+uv run python -m unittest discover tests
+```
+
+---
+
 ## ⚠️ Limitations
 
 - **Public Data Only**: This tool does not access private accounts, deleted data, or password-protected content.

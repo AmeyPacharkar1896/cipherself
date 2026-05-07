@@ -92,10 +92,31 @@ def cli():
     
     # 3. Generate Report
     print("[+] Compiling intelligence report...")
+    
+    # Determine output folder
+    if args.demo:
+        output_subfolder = "demo"
+    else:
+        sources = []
+        if args.github: sources.append("github")
+        if args.reddit: sources.append("reddit")
+        if args.name: sources.append("name")
+        
+        if len(sources) == 3:
+            output_subfolder = "full"
+        else:
+            output_subfolder = "_".join(sources)
+            
+    output_dir = os.path.join("outputs", output_subfolder)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        
     gen = PDFGenerator(gh_data, subject_name, github_user, personality_intel, valuation_intel, reddit_data, reddit_intel)
+    # Update filename to include path
+    gen.filename = os.path.join(output_dir, gen.filename)
     output_file = gen.generate()
     
-    print(f"[*] Report successfully generated: {output_file}")
+    print(f"[*] Report saved to: {output_file}")
     
     # 4. Handle Demo Assets
     if args.demo:

@@ -14,6 +14,7 @@ venv.bak/
 
 # Project specific
 *.pdf
+outputs/
 config.json
 uv.lock
 
