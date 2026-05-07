@@ -1,0 +1,16 @@
+[project]
+name = "cipherself"
+version = "0.1.0"
+description = "OSINT CLI tool for mapping digital footprints."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "requests",
+    "reportlab",
+    "googlesearch-python",
+    "python-dateutil",
+    "beautifulsoup4",
+]
+
+[project.scripts]
+cipherself = "cipherself:main"
