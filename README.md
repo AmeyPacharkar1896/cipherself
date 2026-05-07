@@ -43,7 +43,7 @@ All findings are compiled into a styled **PDF Dossier** that looks like a leaked
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/ameypacharkar/cipherself.git
+git clone https://github.com/AmeyPacharkar1896/cipherself.git
 cd cipherself
 ```
 
