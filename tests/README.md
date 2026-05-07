@@ -5,7 +5,6 @@ This directory contains integration tests for the `cipherself` CLI tool.
 ## Prerequisites
 
 - [uv](https://github.com/astral-sh/uv) installed and synced (`uv sync`).
-- [poppler](https://poppler.freedesktop.org/) installed (for PDF-to-PNG demo conversion).
 
 ## Running Tests
 

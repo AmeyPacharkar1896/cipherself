@@ -10,7 +10,6 @@ dependencies = [
     "googlesearch-python",
     "python-dateutil",
     "beautifulsoup4",
-    "pdf2image>=1.17.0",
 ]
 
 [project.scripts]

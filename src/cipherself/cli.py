@@ -2,7 +2,6 @@ import argparse
 import sys
 import os
 from datetime import datetime
-from pdf2image import convert_from_path
 
 from cipherself.config import DEMO_DATA
 from cipherself.collector.github import GitHubCollector
@@ -117,19 +116,4 @@ def cli():
     output_file = gen.generate()
     
     print(f"[*] Report saved to: {output_file}")
-    
-    # 4. Handle Demo Assets
-    if args.demo:
-        print("[+] Converting demo report to preview image...")
-        if not os.path.exists("assets"):
-            os.makedirs("assets")
-        
-        try:
-            images = convert_from_path(output_file, first_page=1, last_page=1)
-            if images:
-                images[0].save("assets/preview.png", "PNG")
-                print("[*] Preview image saved to assets/preview.png")
-        except Exception as e:
-            print(f"[!] Error generating preview image: {e}")
-
     print("[*] Operation complete.")
