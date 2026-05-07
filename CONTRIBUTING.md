@@ -4,7 +4,7 @@ We welcome contributions to help improve the digital footprint intelligence engi
 
 ## Adding New Inference Rules
 
-Inference rules are located in `generator.py` within the `_infer_personality` method. 
+Inference rules are located in `src/cipherself/analyzer/personality.py` within the `infer` method. 
 
 To add a new rule:
 1. Define the data point you want to analyze (e.g., repository names, bio keywords, or commit frequency).
@@ -19,14 +19,14 @@ if "DevOps" in profile.get('bio', ''):
 
 ## Adding New Data Sources
 
-Data collection logic is handled in `collector.py`.
+Data collection logic is handled in `src/cipherself/collector/`.
 
 1. **GitHub Data**: Add new methods to the `GitHubCollector` class to fetch additional endpoints (e.g., Organizations, Gists).
 2. **Search Sources**: If you want to add a new search engine or public record site, implement a new method in `SearchCollector` or create a new collector class.
 
 ## Style & Aesthetics
 
-Report styling is managed via `reportlab` in `generator.py`. If you're improving the "declassified" look, please maintain the monospace font and high-contrast header theme.
+Report styling is managed via `reportlab` in `src/cipherself/generator/pdf.py`. If you're improving the "declassified" look, please maintain the monospace font and high-contrast header theme.
 
 ## Pull Request Process
 

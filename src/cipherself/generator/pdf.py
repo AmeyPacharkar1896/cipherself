@@ -7,12 +7,14 @@ from reportlab.lib.units import inch
 from datetime import datetime
 
 class PDFGenerator:
-    def __init__(self, data, real_name, github_username, personality_intel, valuation_intel):
+    def __init__(self, data, real_name, github_username, personality_intel, valuation_intel, reddit_data=None, reddit_intel=None):
         self.data = data
         self.real_name = real_name
         self.github_username = github_username
         self.personality_intel = personality_intel
         self.valuation_intel = valuation_intel
+        self.reddit_data = reddit_data
+        self.reddit_intel = reddit_intel
         self.filename = f"{real_name.replace(' ', '_')}_exposed.pdf"
         self.styles = getSampleStyleSheet()
         self._setup_custom_styles()
@@ -54,39 +56,66 @@ class PDFGenerator:
         # Header
         story.append(Paragraph("CLASSIFIED // SENSITIVE INTEL", self.styles['DossierHeader']))
         story.append(Paragraph(f"SUBJECT: {self.real_name.upper()}", self.styles['DossierTitle']))
-        story.append(Paragraph(f"ALIAS: {self.github_username}", self.styles['DossierBase']))
+        alias = self.github_username or (f"u/{self.reddit_data['username']}" if self.reddit_data else "UNKNOWN")
+        story.append(Paragraph(f"ALIAS: {alias}", self.styles['DossierBase']))
         story.append(Paragraph(f"FILE CREATED: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", self.styles['DossierBase']))
         story.append(Spacer(1, 0.5 * inch))
 
-        # Section 1: SUBJECT PROFILE
-        story.append(Paragraph("SECTION 1: SUBJECT PROFILE", self.styles['DossierHeader']))
-        
-        profile = self.data.get('profile', {})
-        activity = self.data.get('activity_stats', {})
-        location = profile.get('location') or 'UNKNOWN'
-        last_active = self.data.get('last_active', 'N/A')
-        
-        narrative = [
-            f"The subject, identified as {self.real_name}, operates primarily from {location}.",
-            f"Professional background indicates focus on {', '.join(self.data.get('languages', {}).keys()) or 'unspecified technologies'}.",
-            f"Activity patterns show peak engagement during {self._get_peak_days(activity)} and {self._get_peak_hours(activity)}.",
-            f"Digital footprint is estimated at {self.data.get('repos_count', 0)} repositories with a total star impact of {self.data.get('stars', 0)}.",
-            f"Last known active signal detected on {last_active}.",
-            f"Personality inferences: {self.personality_intel}"
-        ]
+        # Section 1: SUBJECT PROFILE (GitHub focused)
+        if self.data and 'profile' in self.data:
+            story.append(Paragraph("SECTION 1: SUBJECT PROFILE", self.styles['DossierHeader']))
+            
+            profile = self.data.get('profile', {})
+            activity = self.data.get('activity_stats', {})
+            location = profile.get('location') or 'UNKNOWN'
+            last_active = self.data.get('last_active', 'N/A')
+            
+            narrative = [
+                f"The subject, identified as {self.real_name}, operates primarily from {location}.",
+                f"Professional background indicates focus on {', '.join(self.data.get('languages', {}).keys()) or 'unspecified technologies'}.",
+                f"Activity patterns show peak engagement during {self._get_peak_days(activity)} and {self._get_peak_hours(activity)}.",
+                f"Digital footprint is estimated at {self.data.get('repos_count', 0)} repositories with a total star impact of {self.data.get('stars', 0)}.",
+                f"Last known active signal detected on {last_active}.",
+                f"Personality inferences: {self.personality_intel}"
+            ]
 
-        for p in narrative:
-            story.append(Paragraph(f"> {p}", self.styles['DossierBase']))
-            story.append(Spacer(1, 0.1 * inch))
+            for p in narrative:
+                story.append(Paragraph(f"> {p}", self.styles['DossierBase']))
+                story.append(Spacer(1, 0.1 * inch))
 
-        # Digital Footprint
-        story.append(Spacer(1, 0.2 * inch))
-        story.append(Paragraph("DIGITAL FOOTPRINT (SEARCH RECORDS):", self.styles['DossierBase']))
-        search_results = self.data.get('search_results', [])
-        for res in search_results[:5]:
-            story.append(Paragraph(f"- <u>{res['title']}</u>", self.styles['DossierBase']))
-            story.append(Paragraph(f"  <i>{res['snippet']}</i>", self.styles['DossierBase']))
-            story.append(Spacer(1, 0.05 * inch))
+        # Digital Footprint (Search focused)
+        search_results = self.data.get('search_results', []) if self.data else []
+        if search_results:
+            story.append(Spacer(1, 0.2 * inch))
+            story.append(Paragraph("DIGITAL FOOTPRINT (SEARCH RECORDS):", self.styles['DossierBase']))
+            for res in search_results[:5]:
+                story.append(Paragraph(f"- <u>{res['title']}</u>", self.styles['DossierBase']))
+                story.append(Paragraph(f"  <i>{res['snippet']}</i>", self.styles['DossierBase']))
+                story.append(Spacer(1, 0.05 * inch))
+
+        # Section 1-B: REDDIT (Optional)
+        if self.reddit_data:
+            story.append(Spacer(1, 0.2 * inch))
+            story.append(Paragraph("SECTION 1-B: SOCIAL INTELLIGENCE (REDDIT)", self.styles['DossierHeader']))
+            
+            created_utc = self.reddit_data.get('created_utc')
+            age_str = datetime.fromtimestamp(created_utc).strftime('%Y-%m-%d') if created_utc else "N/A"
+            
+            reddit_summary = [
+                f"Subject operates on Reddit as u/{self.reddit_data['username']}.",
+                f"Account created on {age_str} with a total karma impact of {self.reddit_data['total_karma']}.",
+                f"Most active hour for social engagement: {self.reddit_data['most_active_hour']}:00 UTC.",
+                f"Top Subreddits: {', '.join(self.reddit_data['top_subreddits'].keys())}."
+            ]
+            
+            for s in reddit_summary:
+                story.append(Paragraph(f"> {s}", self.styles['DossierBase']))
+            
+            if self.reddit_intel:
+                story.append(Spacer(1, 0.1 * inch))
+                story.append(Paragraph("SOCIAL INFERENCES:", self.styles['DossierBase']))
+                for inf in self.reddit_intel:
+                    story.append(Paragraph(f"- {inf}", self.styles['DossierBase']))
 
         story.append(PageBreak())
 
@@ -98,6 +127,7 @@ class PDFGenerator:
         table_data = [
             ["PLATFORM/BROKER", "ESTIMATED VALUE"],
             ["Data Richness Score", self.valuation_intel['richness']],
+            ["Sources Analyzed", self.valuation_intel.get('sources', 'N/A')],
             ["Google Ads (Search/Targeting)", f"${self.valuation_intel['google']:.2f}/mo"],
             ["Meta Ads (Demographic/Interests)", f"${self.valuation_intel['meta']:.2f}/mo"],
             ["Data Brokers (Aggregation)", f"${self.valuation_intel['brokers']:.2f}/mo"],
@@ -115,7 +145,7 @@ class PDFGenerator:
             ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
             ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
             ('FONTNAME', (-1, -1), (-1, -1), 'Courier-Bold'),
-            ('BACKGROUND', (0, 5), (-1, 5), colors.lightgrey),
+            ('BACKGROUND', (0, 6), (-1, 6), colors.lightgrey),
         ]))
         story.append(t)
 

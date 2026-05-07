@@ -8,7 +8,7 @@ GOOGLE_SEARCH_URL = "https://www.google.com/search?q="
 DUCKDUCKGO_SEARCH_URL = "https://duckduckgo.com/html/?q="
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 
-# Valuation Models
+# Valuation Models (Legacy base rates)
 CPM_LOW = 15.0
 CPM_HIGH = 45.0
 BROKER_LOW = 0.50
@@ -48,6 +48,7 @@ DEMO_DATA = {
         "meta": 1.90,
         "brokers": 2.50,
         "total": 7.60,
-        "lifetime": 3192.00
+        "lifetime": 3192.00,
+        "sources": "GitHub, Public Records"
     }
 }

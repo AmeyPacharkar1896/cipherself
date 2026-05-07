@@ -12,6 +12,7 @@
 Simply put, **cipherself** takes a GitHub username and a real name, then searches the public web to answer:
 - **How do you code?** (Languages used, peak activity hours, account age).
 - **What is your public presence?** (Snippets from Google and DuckDuckGo).
+- **Social Intelligence?** (Public Reddit activity, karma, and community engagement — **no API keys required**).
 - **What can be inferred about you?** (Heuristic analysis of your personality and work style).
 - **What is your data worth?** (Estimates of your market value to ad platforms).
 
@@ -56,15 +57,26 @@ uv sync
 
 ## 📖 Usage
 
-Run the tool by providing a GitHub username and the subject's full name:
+Run the tool by providing at least one identifier (GitHub, Name, or Reddit):
 
 ```bash
-uv run cipherself.py --github <username> --name "Full Name"
+# Full intel
+uv run cipherself.py --github torvalds --name "Linus Torvalds" --reddit torvalds
+
+# Reddit only
+uv run cipherself.py --reddit spez
+
+# GitHub and Name
+uv run cipherself.py --github torvalds --name "Linus Torvalds"
+
+# Name only (Google search)
+uv run cipherself.py --name "Linus Torvalds"
 ```
 
 ### Options:
-- `--github`: The subject's GitHub username.
-- `--name`: The subject's real full name.
+- `--github`: The subject's GitHub username (optional).
+- `--name`: The subject's real full name (optional).
+- `--reddit`: The subject's Reddit username (optional, no API key needed).
 - `--demo`: Generate a fictional demo report and update `assets/preview.png`.
 - `--help`: View detailed usage instructions.
 
