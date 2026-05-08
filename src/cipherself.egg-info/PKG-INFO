@@ -1,6 +1,18 @@
-# 🕵️‍♂️ cipher
+Metadata-Version: 2.4
+Name: cipherself
+Version: 0.1.0
+Summary: OSINT CLI tool for mapping digital footprints.
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: reportlab
+Requires-Dist: googlesearch-python
+Requires-Dist: python-dateutil
+Requires-Dist: beautifulsoup4
 
-**cipher** is a simple CLI tool that shows you what the public internet knows about you. It scans your GitHub activity and public search records to generate a "declassified" intelligence report about your digital footprint.
+# 🕵️‍♂️ cipherself
+
+**cipherself** is a simple CLI tool that shows you what the public internet knows about you. It scans your GitHub activity and public search records to generate a "declassified" intelligence report about your digital footprint.
 
 [![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -9,7 +21,7 @@
 
 ## 🔍 What this does
 
-Simply put, **cipher** takes a GitHub username and a real name, then searches the public web to answer:
+Simply put, **cipherself** takes a GitHub username and a real name, then searches the public web to answer:
 - **How do you code?** (Languages used, peak activity hours, account age).
 - **What is your public presence?** (Snippets from Google and DuckDuckGo).
 - **Social Intelligence?** (Public Reddit activity, karma, and community engagement — **no API keys required**).
@@ -49,57 +61,44 @@ cd cipherself
 
 ### 2. Install Dependencies
 This project uses [uv](https://github.com/astral-sh/uv) for fast package management.
-
-**Option A: Global Installation (Recommended)**
-Install as a global tool so you can run `cipher` from anywhere:
-```bash
-uv tool install .
-```
-
-**Option B: Local Virtual Environment**
-If developing locally or running directly from the repository:
 ```bash
 uv sync
 uv pip install -e .
 ```
-*(Note: If installed locally, either run commands via `uv run cipher ...` or run `source .venv/bin/activate` first).*
 
 ---
 
 ## 📖 Usage
 
-Run the tool using the `cipher` command (or `uv run cipher` if using local installation). It uses subcommands for different functionalities.
+Run the tool using the `cipherself` command. It now uses subcommands for different functionalities.
 
 ```bash
-usage: cipher <command> [options]
+usage: cipherself <command> [options]
 
 commands:
   scan      Scan a subject's public digital footprint
   compare   Compare two subjects side by side (coming soon)
   demo      Generate a demo report with fictional data
 
-run 'cipher <command> --help' for command-specific options
+run 'cipherself <command> --help' for command-specific options
 ```
 
 ### Examples:
 ```bash
 # Full intel
-cipher scan --github torvalds --name "Linus Torvalds" --reddit torvalds
+cipherself scan --github <GITHUB-USERNAME> --name <NAME> --reddit <REDDIT-USERNAME>
 
 # Reddit only
-cipher scan --reddit spez
+cipherself scan --reddit <REDDIT-USERNAME>
 
 # GitHub and Name
-cipher scan --github torvalds --name "Linus Torvalds"
+cipherself scan --github <GITHUB-USERNAME> --name <NAME>
 
 # Name only (Google search)
-cipher scan --name "Linus Torvalds"
+cipherself scan --name <NAME>
 
 # Demo mode
-cipher demo
-
-# Compare
-cipher compare
+cipherself demo
 ```
 
 ### Options for `scan`:
@@ -145,11 +144,10 @@ uv run python -m unittest discover tests
 
 ## ⚖️ Disclaimer
 
-**cipher** is intended for educational and research purposes only. It uses **only** public APIs and publicly accessible information. It does not perform unauthorized access, require login credentials, or store private data. Users are responsible for complying with local privacy laws and platform terms of service.
+**cipherself** is intended for educational and research purposes only. It uses **only** public APIs and publicly accessible information. It does not perform unauthorized access, require login credentials, or store private data. Users are responsible for complying with local privacy laws and platform terms of service.
 
 ---
 
 ## 📄 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-

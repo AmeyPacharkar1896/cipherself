@@ -1,3 +1,15 @@
+Metadata-Version: 2.4
+Name: cipher
+Version: 0.1.0
+Summary: OSINT CLI tool for mapping digital footprints.
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: reportlab
+Requires-Dist: googlesearch-python
+Requires-Dist: python-dateutil
+Requires-Dist: beautifulsoup4
+
 # 🕵️‍♂️ cipher
 
 **cipher** is a simple CLI tool that shows you what the public internet knows about you. It scans your GitHub activity and public search records to generate a "declassified" intelligence report about your digital footprint.
@@ -49,26 +61,16 @@ cd cipherself
 
 ### 2. Install Dependencies
 This project uses [uv](https://github.com/astral-sh/uv) for fast package management.
-
-**Option A: Global Installation (Recommended)**
-Install as a global tool so you can run `cipher` from anywhere:
-```bash
-uv tool install .
-```
-
-**Option B: Local Virtual Environment**
-If developing locally or running directly from the repository:
 ```bash
 uv sync
 uv pip install -e .
 ```
-*(Note: If installed locally, either run commands via `uv run cipher ...` or run `source .venv/bin/activate` first).*
 
 ---
 
 ## 📖 Usage
 
-Run the tool using the `cipher` command (or `uv run cipher` if using local installation). It uses subcommands for different functionalities.
+Run the tool using the `cipher` command. It now uses subcommands for different functionalities.
 
 ```bash
 usage: cipher <command> [options]

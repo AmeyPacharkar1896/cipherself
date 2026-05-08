@@ -1,5 +1,5 @@
 from datetime import datetime
-from cipherself.config import DEMO_DATA
+from cipher.config.constants import DEMO_DATA
 
 class PersonalityAnalyzer:
     def __init__(self, data, demo_mode=False):

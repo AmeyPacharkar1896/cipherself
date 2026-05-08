@@ -1,9 +1,9 @@
 from datetime import datetime
-from cipherself.config.valuation_rules import (
+from cipher.config.valuation_rules import (
     BASE_RATES, GITHUB_MULTIPLIERS, REDDIT_MULTIPLIERS, 
     SEARCH_MULTIPLIERS, LIFETIME_ACTIVE_YEARS
 )
-from cipherself.config import DEMO_DATA
+from cipher.config.constants import DEMO_DATA
 
 class ValuationAnalyzer:
     def __init__(self, github_data=None, reddit_data=None, demo_mode=False):

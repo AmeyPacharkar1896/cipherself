@@ -1,0 +1,5 @@
+requests
+reportlab
+googlesearch-python
+python-dateutil
+beautifulsoup4

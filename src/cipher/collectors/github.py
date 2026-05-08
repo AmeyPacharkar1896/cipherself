@@ -1,14 +1,14 @@
 import requests
 from datetime import datetime
 from collections import Counter
-from cipherself.config import GITHUB_BASE_URL
+from cipher.config.constants import GITHUB_BASE_URL
 
 class GitHubCollector:
     def __init__(self, username):
         self.username = username
         self.headers = {
             "Accept": "application/vnd.github.v3+json",
-            "User-Agent": "cipherself-cli"
+            "User-Agent": "cipher-cli"
         }
 
     def fetch_all(self):

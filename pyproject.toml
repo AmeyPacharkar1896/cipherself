@@ -1,5 +1,5 @@
 [project]
-name = "cipherself"
+name = "cipher"
 version = "0.1.0"
 description = "OSINT CLI tool for mapping digital footprints."
 readme = "README.md"
@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
-cipherself = "cipherself.cli:cli"
+cipher = "cipher.cli.main:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

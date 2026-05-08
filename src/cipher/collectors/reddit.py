@@ -3,11 +3,13 @@ import time
 from collections import Counter
 from datetime import datetime
 
+from cipher.config.constants import USER_AGENT
+
 class RedditCollector:
     def __init__(self, username):
         self.username = username
         self.headers = {
-            "User-Agent": "cipherself/1.0 by cipherself-tool"
+            "User-Agent": USER_AGENT
         }
 
     def fetch_all(self):
